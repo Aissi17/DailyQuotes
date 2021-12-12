@@ -8,6 +8,8 @@ import OptionButton from './components/OptionButton';
 
 import axios from 'axios'
 
+import * as Speech from 'expo-speech';
+
 
 
 
@@ -23,6 +25,11 @@ export default function App() {
       setAuthor(response.data.author)
       setLoading(false)
     });
+  }
+
+  const speakNow = () => {
+    Speech.stop()
+    Speech.speak(Quote + ' by ' + Author);
   }
 
   useEffect(() => {
@@ -49,9 +56,9 @@ export default function App() {
           </Text>
         </TouchableOpacity>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
-          <OptionButton name='volume-up' />
-          <OptionButton name='copy' />
-          <OptionButton name='twitter' />
+          <OptionButton name='volume-up' onPress={speakNow} />
+          <OptionButton name='copy' onPress={() => { }} />
+          <OptionButton name='twitter' onPress={() => { }} />
 
         </View>
       </View>
