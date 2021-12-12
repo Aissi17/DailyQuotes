@@ -3,9 +3,9 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 
 
-const OptionButton = ({ name }) => {
+const OptionButton = ({ name, onPress }) => {
     return (
-        <TouchableOpacity onPress={() => { }} style={styles.btnNavigation} >
+        <TouchableOpacity onPress={onPress} style={styles.btnNavigation} >
             <FontAwesome5 name={name} size={22} color='#267871' />
         </TouchableOpacity>
     )
