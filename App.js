@@ -9,6 +9,8 @@ import OptionButton from './components/OptionButton';
 import axios from 'axios'
 
 import * as Speech from 'expo-speech';
+import * as Clipboard from 'expo-clipboard';
+
 
 
 
@@ -27,10 +29,21 @@ export default function App() {
     });
   }
 
+  // text to speech function
   const speakNow = () => {
     Speech.stop()
     Speech.speak(Quote + ' by ' + Author);
   }
+
+  // clipboard function
+
+
+  const copyToClipboard = () => {
+    Clipboard.setString(Quote);
+  };
+
+
+
 
   useEffect(() => {
     getRandomQuote()
@@ -57,7 +70,7 @@ export default function App() {
         </TouchableOpacity>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
           <OptionButton name='volume-up' onPress={speakNow} />
-          <OptionButton name='copy' onPress={() => { }} />
+          <OptionButton name='copy' onPress={copyToClipboard} />
           <OptionButton name='twitter' onPress={() => { }} />
 
         </View>
