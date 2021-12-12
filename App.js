@@ -14,12 +14,14 @@ import axios from 'axios'
 export default function App() {
   const [Quote, setQuote] = React.useState('Loading...')
   const [Author, setAuthor] = React.useState('Loading...')
+  const [isLoading, setLoading] = React.useState(false)
 
   getRandomQuote = async () => {
+    setLoading(true)
     await axios.get("https://api.quotable.io/random").then((response) => {
-      console.log(response.data);
       setQuote(response.data.content)
       setAuthor(response.data.author)
+      setLoading(false)
     });
   }
 
@@ -36,13 +38,14 @@ export default function App() {
         </Text>
         <FontAwesome5 name='quote-left' style={{ fontSize: 16, marginBottom: -12 }} color='#000' />
         <Text style={styles.textPragraph}>
-          {Quote}
+          {isLoading ? 'Loading...' : Quote}
         </Text>
         <FontAwesome5 name='quote-right' style={{ fontSize: 16, textAlign: 'right', marginTop: -20, marginBottom: 20 }} color='#000' />
-        <Text style={styles.authorName}> --- {Author} </Text>
+        <Text style={styles.authorName}> ---{isLoading ? 'Loading...' : Author}
+        </Text>
         <TouchableOpacity onPress={getRandomQuote} style={styles.btnStyle}>
           <Text style={styles.btnText}>
-            New Quote
+            {isLoading ? 'Loading...' : 'New Quote'}
           </Text>
         </TouchableOpacity>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
