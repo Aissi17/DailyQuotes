@@ -10,6 +10,8 @@ import axios from 'axios'
 
 import * as Speech from 'expo-speech';
 import * as Clipboard from 'expo-clipboard';
+import SnackBar from 'react-native-snackbar-component'
+
 
 
 
@@ -19,6 +21,7 @@ export default function App() {
   const [Quote, setQuote] = React.useState('Loading...')
   const [Author, setAuthor] = React.useState('Loading...')
   const [isLoading, setLoading] = React.useState(false)
+  const [isCopied, setCopied] = React.useState(false)
 
   getRandomQuote = async () => {
     setLoading(true)
@@ -39,7 +42,9 @@ export default function App() {
 
 
   const copyToClipboard = () => {
+    setCopied(true)
     Clipboard.setString(Quote);
+    // make it false after 1 second
   };
 
 
@@ -72,10 +77,9 @@ export default function App() {
           <OptionButton name='volume-up' onPress={speakNow} />
           <OptionButton name='copy' onPress={copyToClipboard} />
           <OptionButton name='twitter' onPress={() => { }} />
-
         </View>
       </View>
-
+      <SnackBar visible={isCopied} autoHidingTime={1000} textMessage="Quote copied!" actionHandler={() => { Clipboard.setString(null); }} actionText="undo" />
     </Screen>
   );
 }
